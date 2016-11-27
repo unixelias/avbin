@@ -6,54 +6,68 @@
  *      Tipo de objeto: nó binário com estruturas
  */
 
-#include <stddef.h>
+#include <cstddef>
 #include "Nodo.h"
 
 
-
-Nodo::Nodo(ObjetoAp oa) {
-	this->OA = oa;
-	this->fator_bal = 0;//Necessário no TP1?
-	this->pEsq = NULL;
-	this->pDir = NULL;
+Nodo::Nodo(){
+//	LObject *gambLob = new LObject();
+//	this->lob = *gambLob;
+//	this->bal_factor = 0;//Necessário no TP1?
+//	this->pLtef = NULL;
+//	this->pRight = NULL;
 }
 
-int Nodo::getFatorBal(){
-	return fator_bal;
+Nodo::Nodo(LObject newLob) {
+	this->lob = newLob;
+	this->bal_factor = 0;//Necessário no TP1?
+	this->pLtef = NULL;
+	this->pRight = NULL;
 }
 
-void Nodo::setFatorBal(int fatorBal) {
-	fator_bal = fatorBal;
+int Nodo::getBalFactor(){
+	return bal_factor;
 }
 
-ObjetoAp& Nodo::getOa(){
-	return OA;
+void Nodo::setBalFactor(int bal_factor) {
+	this->bal_factor = bal_factor;
 }
 
-void Nodo::setOa(ObjetoAp& oa) {
-	OA = oa;
+LObject& Nodo::getLob(){
+	return lob;
 }
 
-Nodo*& Nodo::getDir(){
-	return pDir;
+void Nodo::setLob(LObject& lob) {
+	this->lob = lob;
 }
 
-void Nodo::setDir(Nodo*& dir) {
-	pDir = dir;
+Nodo*& Nodo::getRight(){
+	return pRight;
 }
 
-Nodo*& Nodo::getEsq(){
-	return pEsq;
+void Nodo::setRight(Nodo*& pRight) {
+	this->pRight = pRight;
 }
 
-void Nodo::setEsq(Nodo*& esq) {
-	pEsq = esq;
+Nodo*& Nodo::getLeft(){
+	return pLtef;
+}
+
+void Nodo::setLeft(Nodo*& pLtef) {
+	this->pLtef = pLtef;
+}
+
+void Nodo::setLeftNull() {
+	this->pLtef = NULL;
+}
+
+void Nodo::setRightNull() {
+	this->pRight = NULL;
 }
 
 Nodo::~Nodo() {
-	free(this->pEsq);
-	free(this->pDir);
+	free(this->pLtef);
+	free(this->pRight);
 
 	// TODO Auto-generated destructor stub
 }
-

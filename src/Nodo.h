@@ -8,24 +8,27 @@
 
 #ifndef NODO_H_
 #define NODO_H_
-#include "ObjetoAp.h"
+#include "LObject.h"
 
 class Nodo {
-	ObjetoAp OA;
-	int fator_bal;//Necessário no TP1?
-	Nodo *pEsq;
-	Nodo *pDir;
+	LObject lob;
+	int bal_factor;//Necessário no TP1?
+	Nodo *pLtef;
+	Nodo *pRight;
 public:
-	Nodo(ObjetoAp oa);
+	Nodo();
+	Nodo(LObject newLob);
 	virtual ~Nodo();
-	int getFatorBal();
-	void setFatorBal(int fatorBal);
-	ObjetoAp& getOa();
-	void setOa(ObjetoAp& oa);
-	Nodo*& getDir();
-	void setDir(Nodo*& dir);
-	Nodo*& getEsq();
-	void setEsq(Nodo*& esq);
+	int getBalFactor();
+	void setBalFactor(int bal_factor);
+	LObject& getLob();
+	void setLob(LObject& lob);
+	Nodo*& getRight();
+	void setRight(Nodo*& pRight);
+	Nodo*& getLeft();
+	void setLeft(Nodo*& pLtef);
+	void setLeftNull();
+	void setRightNull();
 };
 
 #endif /* NODO_H_ */
