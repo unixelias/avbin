@@ -15,7 +15,7 @@
 #include "Nodo.h"
 #include "Tree.h"
 
-typedef Nodo * PointerNodo;
+typedef struct Nodo * PointerNodo;
 using namespace std;
 
 
@@ -28,7 +28,6 @@ int main(int argc, char *argv[]){
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
-	LObject *pLObject;
 	int menu = Menu();
 
 	do {
@@ -39,10 +38,14 @@ int main(int argc, char *argv[]){
 				LObject *pNewLObject;
 				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
 				pNewLObject->createLObject();
-				Nodo *pNewNodo;
-				pNewNodo = pTree->getRoot();
+				PointerNodo *pNewNodo;
+				pNewNodo = new PointerNodo();
+				cout << pNewLObject << " / " << pNewLObject->getIdentifier() << " / " << &pNewLObject << endl;
+
+				cout << pTree->getRoot() << endl;
 				cout << pTree->getRoot();
-				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo);
+				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;
+				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
 				Menu();
 				break;
 			case 2:

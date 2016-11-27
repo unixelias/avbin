@@ -43,8 +43,8 @@ void Tree::SearchIdentificador(LObject *pLObject, Nodo **pNodo) {
 }
 
 void Tree::InsertsNodo(LObject pLObject, Nodo **pNodo) {
-	if (&(*pNodo) == NULL){
-		*pNodo = (Nodo*)malloc(sizeof(Nodo));
+	if ((*pNodo) == NULL){
+		(*pNodo) = (Nodo*)malloc(sizeof(Nodo));
 		(*pNodo)->setLob(pLObject);
 		(*pNodo)->setRightNull();
 		(*pNodo)->setLeftNull();
