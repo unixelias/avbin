@@ -35,6 +35,7 @@ public:
 	string& getType();
 	void setType(string& type);
 	void imprimeObjeto();
+	void testCreateLObject();
 };
 
 #endif /* LOBJECT_H_ */

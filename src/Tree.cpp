@@ -39,7 +39,9 @@ void Tree::SearchIdentificador(LObject *pLObject, Nodo **pNodo) {
 		SearchIdentificador(pLObject, &(*pNodo)->getRight());
 		return;
 	}
-	else (*pNodo)->setLob(*pLObject);
+	else {
+		(*pLObject) = (*pNodo)->getLob();
+	}
 }
 
 void Tree::InsertsNodo(LObject pLObject, Nodo **pNodo) {

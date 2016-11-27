@@ -28,25 +28,29 @@ int main(int argc, char *argv[]){
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
+	LObject *pNewLObject;
+	Nodo *pNodo;
+	pNodo = new Nodo();
+	pTree->setRoot(pNodo);
+	PointerNodo *pNewNodo;
+	pNewNodo = new PointerNodo();
+
+
 	int menu = Menu();
 
-	do {
+	while (menu != 0){
 
 		switch (menu) {
 			case 1:
 				cout << "Inserir Registro" << endl;
-				LObject *pNewLObject;
 				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
-				pNewLObject->createLObject();
-				PointerNodo *pNewNodo;
-				pNewNodo = new PointerNodo();
-				cout << pNewLObject << " / " << pNewLObject->getIdentifier() << " / " << &pNewLObject << endl;
-
+				pNewLObject->testCreateLObject();
+				*pNewNodo = pTree->getRoot();
+				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
+/*				cout << pNewLObject << " / " << pNewLObject->getIdentifier() << " / " << &pNewLObject << endl;
 				cout << pTree->getRoot() << endl;
 				cout << pTree->getRoot();
-				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;
-				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
-				Menu();
+				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;*/
 				break;
 			case 2:
 				cout << "Apagar Registro" << endl;
@@ -58,17 +62,25 @@ int main(int argc, char *argv[]){
 				cout << "Busca por Nome" << endl;
 				break;
 			case 5:
+				long identifier;
 				cout << "Busca por Chave" << endl;
+				cout << "Entre com indice desejado: ";
+				cin >> identifier;
+				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
+				*pNewNodo = pTree->getRoot();
+				pNewLObject->setIdentifier(identifier);
+				pTree->SearchIdentificador(pNewLObject, &(*pNewNodo));
+				pNewLObject->imprimeObjeto();
 				break;
 			case 6:
 				cout << "Sair";
 				break;
 			default:
 				cout << "Tente novamente com uma opção válida"  << endl;
-				Menu();
-				break;
+				return 0;
 		}
-	}while (menu != 0);
+		menu = Menu();
+	};
 
 
 	return 0;
