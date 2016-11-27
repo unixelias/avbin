@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <string.h>
 
 #include "LObject.h"
 
@@ -97,11 +98,25 @@ LObject::~LObject() {
 }
 
 void LObject::imprimeObjeto() {
-	cout << endl << endl << "************************************************" << endl;
+	cout << "************************************************" << endl;
 	cout << "Identificador: " << this->identifier << endl;
 	cout << "Título: " << this->title << endl;
 	cout << "Tipo de OA: " << this->type << endl;
 	cout << "Criador: " << this->creator << endl;
 	cout << "Assunto: " << this->subject << endl;
-	cout << "************************************************" << endl << endl;
+	cout << "************************************************" << endl;
+}
+
+void LObject::testCreateLObject() {
+	long index;
+	srand(time(NULL));
+	index = rand() % 10;
+	this->identifier = index;
+	strcpy(this->title, "Um título Qualquer");
+	string type = ("qualquer");
+	LObject::setType(type);
+	strcpy(this->creator, "Fulano de tal");
+	strcpy(this->subject, "Assuntamento de qq coisa");
+	cout << "Dados virtuais inseridos, continuando..." << endl;
+	LObject::imprimeObjeto();
 }

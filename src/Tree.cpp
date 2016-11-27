@@ -39,12 +39,14 @@ void Tree::SearchIdentificador(LObject *pLObject, Nodo **pNodo) {
 		SearchIdentificador(pLObject, &(*pNodo)->getRight());
 		return;
 	}
-	else (*pNodo)->setLob(*pLObject);
+	else {
+		(*pLObject) = (*pNodo)->getLob();
+	}
 }
 
 void Tree::InsertsNodo(LObject pLObject, Nodo **pNodo) {
-	if (&(*pNodo) == NULL){
-		*pNodo = (Nodo*)malloc(sizeof(Nodo));
+	if ((*pNodo) == NULL){
+		(*pNodo) = (Nodo*)malloc(sizeof(Nodo));
 		(*pNodo)->setLob(pLObject);
 		(*pNodo)->setRightNull();
 		(*pNodo)->setLeftNull();
@@ -57,4 +59,12 @@ void Tree::InsertsNodo(LObject pLObject, Nodo **pNodo) {
 	if (pLObject.getIdentifier() > (*pNodo)->getLob().getIdentifier())
 		Tree::InsertsNodo(pLObject, &(*pNodo)->getRight());
 	else cout << "Erro: Objeto já existe na Árvore\n";
+}
+
+void Tree::ioTraversal(Nodo* pNodo) {
+	if (pNodo == NULL) return;
+	ioTraversal(pNodo->getLeft());
+	pNodo->getLob().imprimeObjeto();
+	ioTraversal(pNodo->getRight());
+	pNodo->getLob().imprimeObjeto();
 }

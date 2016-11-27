@@ -18,6 +18,7 @@ public:
 	void setRoot(Nodo*);
 	void SearchIdentificador(LObject *pLObject, Nodo **pNodo);
 	void InsertsNodo(LObject pLObject,  Nodo **pNodo);
+	void ioTraversal(Nodo *pNodo);
 };
 
 #endif /* TREE_H_ */

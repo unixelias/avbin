@@ -8,6 +8,7 @@
 //============================================================================
 
 #include <iostream>
+#include <fstream>
 //#include <stdio.h>
 //#include <string.h>
 #include <cstddef>
@@ -15,11 +16,12 @@
 #include "Nodo.h"
 #include "Tree.h"
 
-typedef Nodo * PointerNodo;
+typedef struct Nodo * PointerNodo;
 using namespace std;
 
 
 int Menu();
+void openFile(Tree *pTree);
 
 int main(int argc, char *argv[]){
 	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
@@ -28,45 +30,82 @@ int main(int argc, char *argv[]){
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
-	LObject *pLObject;
+	LObject *pNewLObject;
+	Nodo *pNodo;
+	pNodo = new Nodo();
+	pTree->setRoot(pNodo);
+	PointerNodo *pNewNodo;
+	pNewNodo = new PointerNodo();
+	fstream out("docs/Teste.txt");
+	if( !out.is_open() ) {
+		cout << "O arquivo não pode ser aberto!";
+	}
+
 	int menu = Menu();
 
-	do {
+	while (menu != 0){
+		// abre um arquivo para escrita de nome Teste.txt
 
 		switch (menu) {
 			case 1:
 				cout << "Inserir Registro" << endl;
-				LObject *pNewLObject;
 				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
-				pNewLObject->createLObject();
-				Nodo *pNewNodo;
-				pNewNodo = pTree->getRoot();
+				pNewLObject->testCreateLObject();
+				*pNewNodo = pTree->getRoot();
+				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
+
+				char title;
+				title = pNewLObject->getTitle();
+				//string type;
+				//type = pNewLObject->getType();
+				char creator;
+				creator = pNewLObject->getCreator();
+				char subject;
+				subject = pNewLObject->getSubject();
+				out.getline(&title, 256);
+				out << pNewLObject->getIdentifier() << " " << title << " " << pNewLObject->getType() << " " << creator << " " << subject << endl;
+
+
+				/*
+				out << << endl;
+				out << "Este é um pequeno arquivo-texto";
+				cout << pNewLObject << " / " << pNewLObject->getIdentifier() << " / " << &pNewLObject << endl;
+				cout << pTree->getRoot() << endl;
 				cout << pTree->getRoot();
-				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo);
-				Menu();
+				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;*/
 				break;
 			case 2:
 				cout << "Apagar Registro" << endl;
 				break;
 			case 3:
 				cout << "Imprimir Registros" << endl;
+				pTree->ioTraversal(pTree->getRoot());
 				break;
 			case 4:
 				cout << "Busca por Nome" << endl;
 				break;
 			case 5:
+				long identifier;
 				cout << "Busca por Chave" << endl;
+				cout << "Entre com indice desejado: ";
+				cin >> identifier;
+				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
+				*pNewNodo = pTree->getRoot();
+				pNewLObject->setIdentifier(identifier);
+				pTree->SearchIdentificador(pNewLObject, &(*pNewNodo));
+				pNewLObject->imprimeObjeto();
 				break;
 			case 6:
 				cout << "Sair";
 				break;
 			default:
 				cout << "Tente novamente com uma opção válida"  << endl;
-				Menu();
-				break;
+				return 0;
 		}
-	}while (menu != 0);
 
+		menu = Menu();
+	};
+	out.close();
 
 	return 0;
 };
@@ -81,4 +120,13 @@ int Menu(){
 	cin>>menu;
 	return menu;
 };
+
+void FileioTraversal(Nodo* pNodo) {
+	if (pNodo == NULL) return;
+	FileioTraversal(pNodo->getLeft());
+	pNodo->getLob().imprimeObjeto();
+	FileioTraversal(pNodo->getRight());
+	pNodo->getLob().imprimeObjeto();
+}
+
 
