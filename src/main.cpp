@@ -12,9 +12,15 @@
 //#include <stdio.h>
 //#include <string.h>
 #include <cstddef>
+#include <libxml2/libxml/tree.h>
+#include <libxml2/libxml/parser.h>
+#include <time.h>
+#include "DCElement.h"
 #include "LObject.h"
 #include "Nodo.h"
 #include "Tree.h"
+
+
 
 typedef struct Nodo * PointerNodo;
 using namespace std;
@@ -26,20 +32,42 @@ void openFile(Tree *pTree);
 int main(int argc, char *argv[]){
 	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
 
+
+    time_t agora;
+    char datahora[100];
+
+    /* Recupera a quantidade de segundos desde 01/01/1970 */
+    agora = time(NULL);
+
+    /* Formata a data e a hora da forma desejada */
+    strftime( datahora, sizeof(datahora), "%d.%m.%Y - %H:%M:%S", localtime( &agora ) );
+
+    printf( "Data/Hora: %s\n", datahora );
+
+    DCElement *DCElemento;
+    DCElemento = new DCElement();
+
+    DCElemento->setContributor(datahora);
+    DCElemento->setDate(agora);
+
+    cout << DCElemento->getContributor() << endl;
+    cout << DCElemento->getDate() << endl;
+    cout << DCElemento->printDateTime() << endl;
+
+
+
 	// inicializar a árvore
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
-	LObject *pNewLObject;
+	DCElement *pNewLObject;
 	Nodo *pNodo;
 	pNodo = new Nodo();
 	pTree->setRoot(pNodo);
 	PointerNodo *pNewNodo;
 	pNewNodo = new PointerNodo();
-	fstream out("docs/Teste.txt");
-	if( !out.is_open() ) {
-		cout << "O arquivo não pode ser aberto!";
-	}
+	ofstream out("Teste.txt");
+
 
 	int menu = Menu();
 
@@ -49,21 +77,32 @@ int main(int argc, char *argv[]){
 		switch (menu) {
 			case 1:
 				cout << "Inserir Registro" << endl;
-				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
-				pNewLObject->testCreateLObject();
+				pNewLObject = new DCElement(); //Para guardar os dados que serão inseridos
+				pNewLObject->createTestElement();
 				*pNewNodo = pTree->getRoot();
 				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
+				if( !out.is_open() ) {
+					out.open("Teste.txt");
+				}
+				if( !out.is_open() ) {
+						cerr << " copy.out não pode ser aberto para saída\n";
+						exit(-1);
+					}
+					out.write( (char *)&pNewLObject, sizeof(DCElement));
 
-				char title;
-				title = pNewLObject->getTitle();
-				//string type;
-				//type = pNewLObject->getType();
-				char creator;
-				creator = pNewLObject->getCreator();
-				char subject;
-				subject = pNewLObject->getSubject();
-				out.getline(&title, 256);
-				out << pNewLObject->getIdentifier() << " " << title << " " << pNewLObject->getType() << " " << creator << " " << subject << endl;
+//					out.operator <<(identifier);
+//					out << " " << this->type << endl;
+//					long tamanho = strlen(title);
+//					out.write(title, tamanho);
+//					out << endl;
+//					tamanho = strlen(subject);
+//					out.write(subject, tamanho);
+//					out << endl;
+//					tamanho = strlen(creator);
+//					out.write(creator, tamanho);
+//					out << endl;
+					out.close();
+
 
 
 				/*
@@ -89,11 +128,11 @@ int main(int argc, char *argv[]){
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;
-				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
+				pNewLObject = new DCElement(); //Para guardar os dados que serão inseridos
 				*pNewNodo = pTree->getRoot();
 				pNewLObject->setIdentifier(identifier);
 				pTree->SearchIdentificador(pNewLObject, &(*pNewNodo));
-				pNewLObject->imprimeObjeto();
+				pNewLObject->printElement();
 				break;
 			case 6:
 				cout << "Sair";
@@ -105,7 +144,7 @@ int main(int argc, char *argv[]){
 
 		menu = Menu();
 	};
-	out.close();
+
 
 	return 0;
 };
@@ -124,9 +163,9 @@ int Menu(){
 void FileioTraversal(Nodo* pNodo) {
 	if (pNodo == NULL) return;
 	FileioTraversal(pNodo->getLeft());
-	pNodo->getLob().imprimeObjeto();
+	pNodo->getLob().printElement();
 	FileioTraversal(pNodo->getRight());
-	pNodo->getLob().imprimeObjeto();
+	pNodo->getLob().printElement();
 }
 
 

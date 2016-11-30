@@ -8,21 +8,23 @@
 
 #ifndef NODO_H_
 #define NODO_H_
-#include "LObject.h"
+#include "DCElement.h"
+
+#define DCELEMENT_H_
 
 class Nodo {
-	LObject lob;
+	DCElement lob;
 	int bal_factor;//Necessário no TP1?
 	Nodo *pLtef;
 	Nodo *pRight;
 public:
 	Nodo();
-	Nodo(LObject newLob);
+	Nodo(DCElement newLob);
 	virtual ~Nodo();
 	int getBalFactor();
 	void setBalFactor(int bal_factor);
-	LObject& getLob();
-	void setLob(LObject& lob);
+	DCElement& getLob();
+	void setLob(DCElement& lob);
 	Nodo*& getRight();
 	void setRight(Nodo*& pRight);
 	Nodo*& getLeft();

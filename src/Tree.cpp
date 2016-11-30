@@ -6,8 +6,10 @@
  */
 
 #include <cstddef>
-
+#include <iostream>
+#include "DCElement.h"
 #include "Tree.h"
+#include "Nodo.h"
 
 Tree::Tree() {
 	pRoot = NULL;
@@ -26,9 +28,9 @@ void Tree::setRoot(Nodo* nodo){
 }
 ;
 
-void Tree::SearchIdentificador(LObject *pLObject, Nodo **pNodo) {
+void Tree::SearchIdentificador(DCElement *pLObject, Nodo **pNodo) {
 	if (*pNodo == NULL){
-		cout << "Erro: Registro não está presente na Árvore/n";
+		std::cout << "Erro: Registro não está presente na Árvore" << std::endl;
 		return;
 	}
 	if (pLObject->getIdentifier() < (*pNodo)->getLob().getIdentifier()){
@@ -44,7 +46,7 @@ void Tree::SearchIdentificador(LObject *pLObject, Nodo **pNodo) {
 	}
 }
 
-void Tree::InsertsNodo(LObject pLObject, Nodo **pNodo) {
+void Tree::InsertsNodo(DCElement pLObject, Nodo **pNodo) {
 	if ((*pNodo) == NULL){
 		(*pNodo) = (Nodo*)malloc(sizeof(Nodo));
 		(*pNodo)->setLob(pLObject);
@@ -58,13 +60,13 @@ void Tree::InsertsNodo(LObject pLObject, Nodo **pNodo) {
 	}
 	if (pLObject.getIdentifier() > (*pNodo)->getLob().getIdentifier())
 		Tree::InsertsNodo(pLObject, &(*pNodo)->getRight());
-	else cout << "Erro: Objeto já existe na Árvore\n";
+	else std::cout << "Erro: Objeto já existe na Árvore" << std::endl;
 }
 
 void Tree::ioTraversal(Nodo* pNodo) {
 	if (pNodo == NULL) return;
 	ioTraversal(pNodo->getLeft());
-	pNodo->getLob().imprimeObjeto();
+	pNodo->getLob().printElement();
 	ioTraversal(pNodo->getRight());
-	pNodo->getLob().imprimeObjeto();
+	pNodo->getLob().printElement();
 }

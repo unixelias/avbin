@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <string.h>
 
@@ -108,6 +109,7 @@ void LObject::imprimeObjeto() {
 }
 
 void LObject::testCreateLObject() {
+	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
 	long index;
 	srand(time(NULL));
 	index = rand() % 10;
@@ -119,4 +121,5 @@ void LObject::testCreateLObject() {
 	strcpy(this->subject, "Assuntamento de qq coisa");
 	cout << "Dados virtuais inseridos, continuando..." << endl;
 	LObject::imprimeObjeto();
+
 }

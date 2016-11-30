@@ -11,14 +11,14 @@
 
 
 Nodo::Nodo(){
-//	LObject *gambLob = new LObject();
+//	DCElement *gambLob = new DCElement();
 //	this->lob = *gambLob;
 //	this->bal_factor = 0;//Necessário no TP1?
 //	this->pLtef = NULL;
 //	this->pRight = NULL;
 }
 
-Nodo::Nodo(LObject newLob) {
+Nodo::Nodo(DCElement newLob) {
 	this->lob = newLob;
 	this->bal_factor = 0;//Necessário no TP1?
 	this->pLtef = NULL;
@@ -33,11 +33,11 @@ void Nodo::setBalFactor(int bal_factor) {
 	this->bal_factor = bal_factor;
 }
 
-LObject& Nodo::getLob(){
+DCElement& Nodo::getLob(){
 	return lob;
 }
 
-void Nodo::setLob(LObject& lob) {
+void Nodo::setLob(DCElement& lob) {
 	this->lob = lob;
 }
 
