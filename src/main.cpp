@@ -16,7 +16,6 @@
 #include <libxml2/libxml/parser.h>
 #include <time.h>
 #include "DCElement.h"
-#include "LObject.h"
 #include "Nodo.h"
 #include "Tree.h"
 
@@ -60,7 +59,7 @@ int main(int argc, char *argv[]){
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
-	DCElement *pNewLObject;
+	DCElement *pDCElement;
 	Nodo *pNodo;
 	pNodo = new Nodo();
 	pTree->setRoot(pNodo);
@@ -77,10 +76,10 @@ int main(int argc, char *argv[]){
 		switch (menu) {
 			case 1:
 				cout << "Inserir Registro" << endl;
-				pNewLObject = new DCElement(); //Para guardar os dados que serão inseridos
-				pNewLObject->createTestElement();
+				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
+				pDCElement->createTestElement();
 				*pNewNodo = pTree->getRoot();
-				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
+				pTree->InsertsNodo(*pDCElement, &(*pNewNodo));
 				if( !out.is_open() ) {
 					out.open("Teste.txt");
 				}
@@ -88,7 +87,7 @@ int main(int argc, char *argv[]){
 						cerr << " copy.out não pode ser aberto para saída\n";
 						exit(-1);
 					}
-					out.write( (char *)&pNewLObject, sizeof(DCElement));
+					out.write( (char *)&pDCElement, sizeof(DCElement));
 
 //					out.operator <<(identifier);
 //					out << " " << this->type << endl;
@@ -108,7 +107,7 @@ int main(int argc, char *argv[]){
 				/*
 				out << << endl;
 				out << "Este é um pequeno arquivo-texto";
-				cout << pNewLObject << " / " << pNewLObject->getIdentifier() << " / " << &pNewLObject << endl;
+				cout << pDCElement << " / " << pDCElement->getIdentifier() << " / " << &pDCElement << endl;
 				cout << pTree->getRoot() << endl;
 				cout << pTree->getRoot();
 				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;*/
@@ -128,11 +127,11 @@ int main(int argc, char *argv[]){
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;
-				pNewLObject = new DCElement(); //Para guardar os dados que serão inseridos
+				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
 				*pNewNodo = pTree->getRoot();
-				pNewLObject->setIdentifier(identifier);
-				pTree->SearchIdentificador(pNewLObject, &(*pNewNodo));
-				pNewLObject->printElement();
+				pDCElement->setIdentifier(identifier);
+				pTree->SearchIdentificador(pDCElement, &(*pNewNodo));
+				pDCElement->printElement();
 				break;
 			case 6:
 				cout << "Sair";

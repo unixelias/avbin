@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include "Nodo.h"
+#include "DCElement.h"
 
 
 Nodo::Nodo(){

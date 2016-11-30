@@ -32,6 +32,7 @@ class DCElement {
 	/*Aqui entram demais metadados com os possíveis pesos ou demais tags de identificação*/
 public:
 	DCElement();
+	DCElement(long identifier, std::string title, std::string type, std::string creator, std::string subject);
 	virtual ~DCElement();
 
 	void teste() {
