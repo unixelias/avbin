@@ -16,6 +16,13 @@ DCElement::DCElement() {
 	// TODO Auto-generated constructor stub
 
 }
+DCElement::DCElement(long identifier, std::string title, std::string type, std::string creator, std::string subject){
+	this->identifier = identifier;
+	this->title = title;
+	this->type = type;
+	this->creator = creator;
+	this->subject = subject;
+}
 
 const std::string& DCElement::getContributor() const {
 	return contributor;
@@ -151,37 +158,30 @@ void DCElement::createElement() {
 		std::cout << "Entre com os dados do Objeto de Aprendizagem" << std::endl;
 		std::cout << "Identificador: ";
 		std::cin >> this->identifier;
-		//this->identifier = identifier;
-
 		std::cout << "Título: ";
 		std::cin >> this->title;
-		//this->title = title;
-
 		std::cout << "Tipo de OA: ";
 		std::cin >> this->type;
-		//this->type = type;
-
 		std::cout << "Criador: ";
 		std::cin >> this->creator;
-		//this->creator = creator;
-		//c/in.ignore();
-
 		std::cout << "Assunto: ";
 		std::cin >> this->subject;
-		//this->subject = subject;
 }
 
 void DCElement::createTestElement() {
+	// Seta a codificação
 	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
+	//Gera um índice aleatório
 	long index;
 	srand(time(NULL));
-	index = rand() % 10;
+	index = 1+rand()%(101-1);
+	//Preenche as informações
 	this->identifier = index;
 	this->title = "Um título Qualquer";
 	this->type = "Um tipo qualquer";
 	this->creator = "Fulano de tal";
 	this->subject = "Assuntamento de qq coisa";
-	std::cout << "Dados virtuais inseridos, continuando..." << std::endl;
+	std::cout << "Dados " << index << " virtuais inseridos, continuando..." << std::endl;
 	DCElement::printElement();
 }
 
