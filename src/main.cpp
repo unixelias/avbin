@@ -8,6 +8,7 @@
 //============================================================================
 
 #include <iostream>
+#include <new>
 #include <fstream>
 //#include <stdio.h>
 //#include <string.h>
@@ -66,7 +67,7 @@ int main(int argc, char *argv[]){
 	PointerNodo *pNewNodo;
 	pNewNodo = new PointerNodo();
 	ofstream out("Teste.txt");
-
+	if (pNewNodo == nullptr) cout << &pNewNodo;
 
 	int menu = Menu();
 
