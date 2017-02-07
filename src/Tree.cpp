@@ -5,7 +5,7 @@
  *      Author: elias
  */
 
-//#include <cstddef>
+#include <cstddef>
 #include <iostream>
 #include <new>
 #include "DCElement.h"
@@ -15,7 +15,7 @@
 //using pNodo = Nodo *;
 
 Tree::Tree() {
-	pRoot = nullptr;
+	pRoot = NULL;
 }
 
 Tree::~Tree() {
@@ -32,7 +32,7 @@ void Tree::setRoot(Nodo* nodo){
 ;
 
 void Tree::SearchIdentificador(DCElement *pLObject, Nodo **pNodo) {
-	if (*pNodo == nullptr){
+	if (*pNodo == NULL){
 		std::cout << "Erro: Registro não está presente na Árvore" << std::endl;
 		return;
 	}
@@ -50,7 +50,7 @@ void Tree::SearchIdentificador(DCElement *pLObject, Nodo **pNodo) {
 }
 
 void Tree::InsertsNodo(DCElement pLObject, Nodo **pNodo) {
-	if ((*pNodo) == nullptr){
+	if ((*pNodo) == NULL){
 		(*pNodo) = (Nodo*)malloc(sizeof(Nodo));
 		(*pNodo)->setLob(pLObject);
 		(*pNodo)->setRightNull();
@@ -67,7 +67,7 @@ void Tree::InsertsNodo(DCElement pLObject, Nodo **pNodo) {
 }
 
 void Tree::ioTraversal(Nodo* pNodo) {
-	if (pNodo == nullptr) return;
+	if (pNodo == NULL) return;
 	ioTraversal(pNodo->getLeft());
 	pNodo->getLob().printElement();
 	ioTraversal(pNodo->getRight());

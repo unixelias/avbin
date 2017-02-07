@@ -10,8 +10,8 @@
 #include <iostream>
 #include <new>
 #include <fstream>
-//#include <stdio.h>
-//#include <string.h>
+#include <stdio.h>
+#include <string.h>
 #include <cstddef>
 #include <libxml2/libxml/tree.h>
 #include <libxml2/libxml/parser.h>
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]){
 	PointerNodo *pNewNodo;
 	pNewNodo = new PointerNodo();
 	ofstream out("Teste.txt");
-	if (pNewNodo == nullptr) cout << &pNewNodo;
+	if (pNewNodo == NULL) cout << &pNewNodo;
 
 	int menu = Menu();
 
@@ -105,13 +105,13 @@ int main(int argc, char *argv[]){
 
 
 
-				/*
-				out << << endl;
-				out << "Este é um pequeno arquivo-texto";
+
+				cout << endl;
+				cout << "Este é um pequeno arquivo-texto";
 				cout << pDCElement << " / " << pDCElement->getIdentifier() << " / " << &pDCElement << endl;
 				cout << pTree->getRoot() << endl;
 				cout << pTree->getRoot();
-				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;*/
+				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;
 				break;
 			case 2:
 				cout << "Apagar Registro" << endl;
