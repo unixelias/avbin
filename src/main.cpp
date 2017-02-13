@@ -17,12 +17,9 @@
 #include <libxml2/libxml/parser.h>
 #include <time.h>
 #include "DCElement.h"
-#include "Nodo.h"
 #include "Tree.h"
 
 
-
-typedef struct Nodo * PointerNodo;
 using namespace std;
 
 
@@ -60,15 +57,9 @@ int main(int argc, char *argv[]){
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
-	DCElement *pDCElement;
-	Nodo *pNodo;
-	pNodo = new Nodo();
-	pTree->setRoot(pNodo);
-	PointerNodo *pNewNodo;
+	string nome = "";
 
-
-	ofstream out("Teste.txt");
-	if (pNewNodo == NULL) cout << &pNewNodo;
+	//ofstream out("Teste.txt");
 
 	int menu = Menu();
 
@@ -78,19 +69,10 @@ int main(int argc, char *argv[]){
 		switch (menu) {
 			case 1:{
 				cout << "Inserir Registro" << endl;
+				DCElement *pDCElement;
 				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
 				pDCElement->createTestElement();
-
-				// inserir o nó na árvore com um objeto complementar dce
-				// em seguida inserir o DCE dentro do nó
-				pNewNodo = new PointerNodo();
-				(*pNewNodo) = pTree->getRoot();
-				pTree->InsertsNodo(*pDCElement, &(*pNewNodo));
-				cout << pNewNodo << "\n";
-				cout << *pNewNodo << "\n";
-				cout << (*pNewNodo) << "\n";
-				cout << &(*pNewNodo) << "\n";
-				cout << &pNewNodo << "\n";
+				pTree->InsertsNodo(*pDCElement, pTree->getNewNodo());
 
 				break;
 			}
@@ -105,6 +87,12 @@ int main(int argc, char *argv[]){
 			}
 			case 4:{
 				cout << "Busca por Nome" << endl;
+				cout << "Digite a chave de busca: ";
+				cin >> nome;
+				DCElement *pDCElement;
+				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
+				pTree->SearchName(nome, pTree->getRoot());
+				//pDCElement->printElement();
 				break;
 			}
 			case 5:{
@@ -112,11 +100,11 @@ int main(int argc, char *argv[]){
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;
+				DCElement *pDCElement;
 				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
-				pNewNodo = new PointerNodo();
-				*pNewNodo = pTree->getRoot();
+
 				pDCElement->setIdentifier(identifier);
-				pTree->SearchIdentificador(pDCElement, &(*pNewNodo));
+				if (pTree->SearchIdentificator(pDCElement, pTree->getNewNodo()))
 				pDCElement->printElement();
 				break;
 			}
@@ -148,12 +136,5 @@ int Menu(){
 	return menu;
 };
 
-void FileioTraversal(Nodo* pNodo) {
-	if (pNodo == NULL) return;
-	FileioTraversal(pNodo->getLeft());
-	pNodo->getLob().printElement();
-	FileioTraversal(pNodo->getRight());
-	pNodo->getLob().printElement();
-}
 
 
