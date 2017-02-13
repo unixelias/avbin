@@ -29,35 +29,12 @@ int Menu();
 int main(int argc, char *argv[]){
 	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
 
-
-    time_t agora;
-    char datahora[100];
-
-    /* Recupera a quantidade de segundos desde 01/01/1970 */
-    agora = time(NULL);
-
-    /* Formata a data e a hora da forma desejada */
-    strftime( datahora, sizeof(datahora), "%d.%m.%Y - %H:%M:%S", localtime( &agora ) );
-
-    printf( "Data/Hora: %s\n", datahora );
-
-    DCElement *DCElemento;
-    DCElemento = new DCElement();
-
-    DCElemento->setContributor(datahora);
-    DCElemento->setDate(agora);
-
-    cout << DCElemento->getContributor() << endl;
-    cout << DCElemento->getDate() << endl;
-    cout << DCElemento->printDateTime() << endl;
-
-
-
 	// inicializar a árvore
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
 	string nome = "";
+	long identifier;
 
 	//ofstream out("Teste.txt");
 
@@ -78,6 +55,11 @@ int main(int argc, char *argv[]){
 			}
 			case 2:{
 				cout << "Apagar Registro" << endl;
+				cout << "Entre com indice desejado: ";
+				cin >> identifier;
+				pTree->RemovesNodo(identifier,  pTree->getNewNodo());
+
+
 				break;
 			}
 			case 3:{
@@ -96,7 +78,6 @@ int main(int argc, char *argv[]){
 				break;
 			}
 			case 5:{
-				long identifier;
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;

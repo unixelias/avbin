@@ -1,5 +1,5 @@
 /*
- * Arvore.cpp
+ * Tree.cpp
  *
  *  Created on: 24 de nov de 2016
  *      Author: elias
@@ -65,6 +65,7 @@ bool Tree::SearchName(std::string nome, Tree::Nodo* pNodo) {
 	Tree::ioTraversal(pNodo->getLeft());
 	if (pNodo->getLob().getCreator().find(nome)){
 		pNodo->getLob().printElement();
+		return true;
 	}
 	Tree::ioTraversal(pNodo->getRight());
 };
@@ -85,14 +86,45 @@ void Tree::InsertsNodo(DCElement pLObject, Tree::Nodo **pNewNodo) {
 
 };
 
+Tree::Nodo** Tree::Predecessor (Tree::Nodo *pNodoQ, Tree::Nodo **pNodoR){
+	if ((*pNodoR)->getRight() != NULL){
+		(*pNodoR)->setRight((*Tree::Predecessor(pNodoQ, &(*pNodoR)->getRight())));
+	}else {
+		pNodoQ = (*pNodoR);
+		(*pNodoR) = (*pNodoR)->getRight();
+	}
+	return pNodoR;
+
+};
+
+void Tree::RemovesNodo(long identifier,  Tree::Nodo **pNewNodo){
+	if ((*pNewNodo) == NULL){
+		std::cout << "Erro: Registro não está presente na Árvore" << std::endl;
+	}else if (identifier < (*pNewNodo)->getLob().getIdentifier()){
+		Tree::RemovesNodo(identifier, &(*pNewNodo)->getLeft());
+	}else if (identifier > (*pNewNodo)->getLob().getIdentifier()){
+		Tree::RemovesNodo(identifier, &(*pNewNodo)->getRight());
+	}else{
+		if ((*pNewNodo)->getRight() == NULL){
+			(*pNewNodo) = (*pNewNodo)->getLeft();
+
+		}else if ((*pNewNodo)->getLeft() == NULL){
+			(*pNewNodo) = (*pNewNodo)->getRight();
+
+		}else {
+			(*pNewNodo)->setLeft((*Tree::Predecessor((*pNewNodo), &(*pNewNodo)->getRight())));
+		}
+		std::cout << "Item removido com sucesso" << std::endl;
+	}
+
+};
+
 void Tree::ioTraversal(Tree::Nodo* pNodo) {
 	if (pNodo == NULL) return;
 	Tree::ioTraversal(pNodo->getLeft());
 	pNodo->getLob().printElement();
 	Tree::ioTraversal(pNodo->getRight());
 };
-
-
 
 
 int Tree::Nodo::getBalFactor(){

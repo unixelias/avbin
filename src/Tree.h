@@ -1,5 +1,5 @@
 /*
- * Arvore.h
+ * Tree.h
  *
  *  Created on: 24 de nov de 2016
  *      Author: elias
@@ -45,7 +45,9 @@ public:
 	void setRoot(Tree::Nodo*);
 	bool SearchIdentificator(DCElement *pLObject, Tree::Nodo **pNodo);
 	bool SearchName(std::string nome, Tree::Nodo* pNodo);
-	void InsertsNodo(DCElement pLObject,  Tree::Nodo **pNodo);
+	void InsertsNodo(DCElement pLObject,  Tree::Nodo **pNewNodo);
+	Tree::Nodo** Predecessor (Tree::Nodo *pNodoQ, Tree::Nodo **pNodoR);
+	void RemovesNodo(long identifier,  Tree::Nodo **pNewNodo);
 	void ioTraversal(Tree::Nodo *pNodo);
 };
 
