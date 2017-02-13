@@ -27,7 +27,6 @@ Tree::Nodo::Nodo(){
 
 Tree::Nodo::Nodo(DCElement newLob) {
 	this->lob = newLob;
-	this->bal_factor = 0;//Necessário no TP1?
 	this->pLtef = NULL;
 	this->pRight = NULL;
 };
@@ -63,7 +62,7 @@ bool Tree::SearchIdentificator(DCElement *pLObject, Tree::Nodo **pNodo) {
 bool Tree::SearchName(std::string nome, Tree::Nodo* pNodo) {
 	if (pNodo == NULL) return false;
 	Tree::ioTraversal(pNodo->getLeft());
-	if (pNodo->getLob().getCreator().find(nome)){
+	if (pNodo->getLob().getCreator() == nome){
 		pNodo->getLob().printElement();
 		return true;
 	}
@@ -126,14 +125,6 @@ void Tree::ioTraversal(Tree::Nodo* pNodo) {
 	Tree::ioTraversal(pNodo->getRight());
 };
 
-
-int Tree::Nodo::getBalFactor(){
-	return bal_factor;
-};
-
-void Tree::Nodo::setBalFactor(int bal_factor) {
-	this->bal_factor = bal_factor;
-};
 
 DCElement& Tree::Nodo::getLob(){
 	return lob;

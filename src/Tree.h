@@ -16,15 +16,12 @@ class Tree {
 public:
 	class Nodo {
 		DCElement lob;
-		int bal_factor;//Necessário no TP1?
 		Nodo *pLtef;
 		Nodo *pRight;
 	public:
 		Nodo();
 		Nodo(DCElement newLob);
 		virtual ~Nodo();
-		int getBalFactor();
-		void setBalFactor(int bal_factor);
 		DCElement& getLob();
 		void setLob(DCElement& lob);
 		Nodo*& getRight();

@@ -7,15 +7,14 @@
 // Description : Sistema de Organização de Objetos de Aprendizagem
 //============================================================================
 
-#include <iostream>
 #include <new>
+#include <iostream>
 #include <fstream>
 #include <stdio.h>
 #include <string.h>
 #include <cstddef>
 #include <libxml2/libxml/tree.h>
 #include <libxml2/libxml/parser.h>
-#include <time.h>
 #include "DCElement.h"
 #include "Tree.h"
 
@@ -24,19 +23,31 @@ using namespace std;
 
 
 int Menu();
-//void openFile(Tree *pTree);
+
 
 int main(int argc, char *argv[]){
-	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
 
 	// inicializar a árvore
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
+	DCElement *pDCElement;
 	string nome = "";
 	long identifier;
+	bool testes;
 
-	//ofstream out("Teste.txt");
+	/*fstream fio("Teste.txt"); // Abre arquivo para gravação
+	 //em modo texto
+	 char ch;
+	 cout << "Digite um texto ";
+	 cout << "\nPressione CTRL_Z para encerrar ";
+	 cin.get(ch); // Lê um caracter do teclado
+	 fio.put(ch); // Grava o caracter no arquivo
+	 fio.close();*/
+
+	cout << "Digite 0 se você deseja criar regitros de teste" << endl;
+	cout << "Digite 1 se você deseja criar registros reais" << endl;
+	cin >> testes;
 
 	int menu = Menu();
 
@@ -46,9 +57,12 @@ int main(int argc, char *argv[]){
 		switch (menu) {
 			case 1:{
 				cout << "Inserir Registro" << endl;
-				DCElement *pDCElement;
 				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
-				pDCElement->createTestElement();
+				if (testes){
+					pDCElement->createElement();
+				}else{
+					pDCElement->createTestElement();
+				}
 				pTree->InsertsNodo(*pDCElement, pTree->getNewNodo());
 
 				break;
@@ -71,19 +85,14 @@ int main(int argc, char *argv[]){
 				cout << "Busca por Nome" << endl;
 				cout << "Digite a chave de busca: ";
 				cin >> nome;
-				DCElement *pDCElement;
-				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
 				pTree->SearchName(nome, pTree->getRoot());
-				//pDCElement->printElement();
 				break;
 			}
 			case 5:{
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;
-				DCElement *pDCElement;
 				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
-
 				pDCElement->setIdentifier(identifier);
 				if (pTree->SearchIdentificator(pDCElement, pTree->getNewNodo()))
 				pDCElement->printElement();
