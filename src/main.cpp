@@ -86,6 +86,11 @@ int main(int argc, char *argv[]){
 				pNewNodo = new PointerNodo();
 				(*pNewNodo) = pTree->getRoot();
 				pTree->InsertsNodo(*pDCElement, &(*pNewNodo));
+				cout << pNewNodo << "\n";
+				cout << *pNewNodo << "\n";
+				cout << (*pNewNodo) << "\n";
+				cout << &(*pNewNodo) << "\n";
+				cout << &pNewNodo << "\n";
 
 				break;
 			}
@@ -121,7 +126,6 @@ int main(int argc, char *argv[]){
 			}
 			default:{
 				cout << "Tente novamente com uma opção válida"  << endl;
-				return Menu();
 				break;
 			}
 		}

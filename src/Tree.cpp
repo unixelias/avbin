@@ -58,6 +58,7 @@ void Tree::InsertsNodo(DCElement pLObject, Nodo **pNodo) {
 		(*pNodo)->setLeftNull();
 		return;
 	}else if (pLObject.getIdentifier() < (*pNodo)->getLob().getIdentifier()){
+
 		Tree::InsertsNodo(pLObject, &(*pNodo)->getLeft());
 		return;
 	}else if (pLObject.getIdentifier() > (*pNodo)->getLob().getIdentifier()){
@@ -71,6 +72,11 @@ void Tree::InsertsNodo(DCElement pLObject, Nodo **pNodo) {
 }
 
 void Tree::ioTraversal(Nodo* pNodo) {
+	if (pNodo) std::cout << pNodo->getLob().getIdentifier() << "\n";
+	std::cout << pNodo << "\n";
+	std::cout << (pNodo) << "\n";
+	std::cout << &(pNodo) << "\n";
+	std::cout << &pNodo << "\n";
 	if (pNodo == NULL) return;
 	ioTraversal(pNodo->getLeft());
 	ioTraversal(pNodo->getRight());
