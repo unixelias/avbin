@@ -22,7 +22,7 @@ DCElement::DCElement(long identifier, std::string title, std::string type, std::
 	this->type = type;
 	this->creator = creator;
 	this->subject = subject;
-}
+}//Construtor 1
 
 const std::string& DCElement::getContributor() const {
 	return contributor;

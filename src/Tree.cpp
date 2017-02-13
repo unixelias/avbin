@@ -46,30 +46,33 @@ void Tree::SearchIdentificador(DCElement *pLObject, Nodo **pNodo) {
 	}
 	else {
 		(*pLObject) = (*pNodo)->getLob();
+		return;
 	}
 }
 
 void Tree::InsertsNodo(DCElement pLObject, Nodo **pNodo) {
 	if ((*pNodo) == NULL){
-		(*pNodo) = (Nodo*)malloc(sizeof(Nodo));
+		(*pNodo) = new Nodo();
 		(*pNodo)->setLob(pLObject);
 		(*pNodo)->setRightNull();
 		(*pNodo)->setLeftNull();
 		return;
-	}
-	if (pLObject.getIdentifier() < (*pNodo)->getLob().getIdentifier()){
+	}else if (pLObject.getIdentifier() < (*pNodo)->getLob().getIdentifier()){
 		Tree::InsertsNodo(pLObject, &(*pNodo)->getLeft());
 		return;
-	}
-	if (pLObject.getIdentifier() > (*pNodo)->getLob().getIdentifier())
+	}else if (pLObject.getIdentifier() > (*pNodo)->getLob().getIdentifier()){
 		Tree::InsertsNodo(pLObject, &(*pNodo)->getRight());
-	else std::cout << "Erro: Objeto já existe na Árvore" << std::endl;
+		return;
+	}else{
+		std::cout << "Erro: Objeto já existe na Árvore" << std::endl;
+		return;
+	}
+
 }
 
 void Tree::ioTraversal(Nodo* pNodo) {
 	if (pNodo == NULL) return;
 	ioTraversal(pNodo->getLeft());
-	pNodo->getLob().printElement();
 	ioTraversal(pNodo->getRight());
 	pNodo->getLob().printElement();
 }

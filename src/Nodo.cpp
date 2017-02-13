@@ -12,11 +12,11 @@
 
 
 Nodo::Nodo(){
-//	DCElement *gambLob = new DCElement();
-//	this->lob = *gambLob;
-//	this->bal_factor = 0;//Necessário no TP1?
-//	this->pLtef = NULL;
-//	this->pRight = NULL;
+	DCElement *gambLob = new DCElement();
+	this->lob = *gambLob;
+	this->bal_factor = 0;//Necessário no TP1?
+	this->pLtef = NULL;
+	this->pRight = NULL;
 }
 
 Nodo::Nodo(DCElement newLob) {

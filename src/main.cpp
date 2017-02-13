@@ -27,7 +27,7 @@ using namespace std;
 
 
 int Menu();
-void openFile(Tree *pTree);
+//void openFile(Tree *pTree);
 
 int main(int argc, char *argv[]){
 	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
@@ -65,7 +65,8 @@ int main(int argc, char *argv[]){
 	pNodo = new Nodo();
 	pTree->setRoot(pNodo);
 	PointerNodo *pNewNodo;
-	pNewNodo = new PointerNodo();
+
+
 	ofstream out("Teste.txt");
 	if (pNewNodo == NULL) cout << &pNewNodo;
 
@@ -75,71 +76,54 @@ int main(int argc, char *argv[]){
 		// abre um arquivo para escrita de nome Teste.txt
 
 		switch (menu) {
-			case 1:
+			case 1:{
 				cout << "Inserir Registro" << endl;
 				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
 				pDCElement->createTestElement();
-				*pNewNodo = pTree->getRoot();
+
+				// inserir o nó na árvore com um objeto complementar dce
+				// em seguida inserir o DCE dentro do nó
+				pNewNodo = new PointerNodo();
+				(*pNewNodo) = pTree->getRoot();
 				pTree->InsertsNodo(*pDCElement, &(*pNewNodo));
-				if( !out.is_open() ) {
-					out.open("Teste.txt");
-				}
-				if( !out.is_open() ) {
-						cerr << " copy.out não pode ser aberto para saída\n";
-						exit(-1);
-					}
-					out.write( (char *)&pDCElement, sizeof(DCElement));
 
-//					out.operator <<(identifier);
-//					out << " " << this->type << endl;
-//					long tamanho = strlen(title);
-//					out.write(title, tamanho);
-//					out << endl;
-//					tamanho = strlen(subject);
-//					out.write(subject, tamanho);
-//					out << endl;
-//					tamanho = strlen(creator);
-//					out.write(creator, tamanho);
-//					out << endl;
-					out.close();
-
-
-
-
-				cout << endl;
-				cout << "Este é um pequeno arquivo-texto";
-				cout << pDCElement << " / " << pDCElement->getIdentifier() << " / " << &pDCElement << endl;
-				cout << pTree->getRoot() << endl;
-				cout << pTree->getRoot();
-				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;
 				break;
-			case 2:
+			}
+			case 2:{
 				cout << "Apagar Registro" << endl;
 				break;
-			case 3:
+			}
+			case 3:{
 				cout << "Imprimir Registros" << endl;
 				pTree->ioTraversal(pTree->getRoot());
 				break;
-			case 4:
+			}
+			case 4:{
 				cout << "Busca por Nome" << endl;
 				break;
-			case 5:
+			}
+			case 5:{
 				long identifier;
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;
 				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
+				pNewNodo = new PointerNodo();
 				*pNewNodo = pTree->getRoot();
 				pDCElement->setIdentifier(identifier);
 				pTree->SearchIdentificador(pDCElement, &(*pNewNodo));
 				pDCElement->printElement();
 				break;
-			case 6:
+			}
+			case 6:{
 				cout << "Sair";
 				break;
-			default:
+			}
+			default:{
 				cout << "Tente novamente com uma opção válida"  << endl;
-				return 0;
+				return Menu();
+				break;
+			}
 		}
 
 		menu = Menu();
