@@ -7,39 +7,47 @@
 // Description : Sistema de Organização de Objetos de Aprendizagem
 //============================================================================
 
+#include <new>
 #include <iostream>
 #include <fstream>
-//#include <stdio.h>
-//#include <string.h>
+#include <stdio.h>
+#include <string.h>
 #include <cstddef>
-#include "LObject.h"
-#include "Nodo.h"
+#include <libxml2/libxml/tree.h>
+#include <libxml2/libxml/parser.h>
+#include "DCElement.h"
 #include "Tree.h"
 
-typedef struct Nodo * PointerNodo;
+
 using namespace std;
 
 
 int Menu();
-void openFile(Tree *pTree);
+
 
 int main(int argc, char *argv[]){
-	setlocale(LC_ALL,"Portuguese"); //Para uso de caracteres em utf-8
 
 	// inicializar a árvore
 
 	Tree *pTree;
 	pTree = new Tree();//Arvore de registros
-	LObject *pNewLObject;
-	Nodo *pNodo;
-	pNodo = new Nodo();
-	pTree->setRoot(pNodo);
-	PointerNodo *pNewNodo;
-	pNewNodo = new PointerNodo();
-	fstream out("docs/Teste.txt");
-	if( !out.is_open() ) {
-		cout << "O arquivo não pode ser aberto!";
-	}
+	DCElement *pDCElement;
+	string nome = "";
+	long identifier;
+	bool testes;
+
+	/*fstream fio("Teste.txt"); // Abre arquivo para gravação
+	 //em modo texto
+	 char ch;
+	 cout << "Digite um texto ";
+	 cout << "\nPressione CTRL_Z para encerrar ";
+	 cin.get(ch); // Lê um caracter do teclado
+	 fio.put(ch); // Grava o caracter no arquivo
+	 fio.close();*/
+
+	cout << "Digite 0 se você deseja criar regitros de teste" << endl;
+	cout << "Digite 1 se você deseja criar registros reais" << endl;
+	cin >> testes;
 
 	int menu = Menu();
 
@@ -47,65 +55,62 @@ int main(int argc, char *argv[]){
 		// abre um arquivo para escrita de nome Teste.txt
 
 		switch (menu) {
-			case 1:
+			case 1:{
 				cout << "Inserir Registro" << endl;
-				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
-				pNewLObject->testCreateLObject();
-				*pNewNodo = pTree->getRoot();
-				pTree->InsertsNodo(*pNewLObject, &(*pNewNodo));
+				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
+				if (testes){
+					pDCElement->createElement();
+				}else{
+					pDCElement->createTestElement();
+				}
+				pTree->InsertsNodo(*pDCElement, pTree->getNewNodo());
 
-				char title;
-				title = pNewLObject->getTitle();
-				//string type;
-				//type = pNewLObject->getType();
-				char creator;
-				creator = pNewLObject->getCreator();
-				char subject;
-				subject = pNewLObject->getSubject();
-				out.getline(&title, 256);
-				out << pNewLObject->getIdentifier() << " " << title << " " << pNewLObject->getType() << " " << creator << " " << subject << endl;
-
-
-				/*
-				out << << endl;
-				out << "Este é um pequeno arquivo-texto";
-				cout << pNewLObject << " / " << pNewLObject->getIdentifier() << " / " << &pNewLObject << endl;
-				cout << pTree->getRoot() << endl;
-				cout << pTree->getRoot();
-				cout << pNewNodo << " / " << *pNewNodo <<  " / " << &pNewNodo << " / " << &(*pNewNodo) << endl;*/
 				break;
-			case 2:
+			}
+			case 2:{
 				cout << "Apagar Registro" << endl;
+				cout << "Entre com indice desejado: ";
+				cin >> identifier;
+				pTree->RemovesNodo(identifier,  pTree->getNewNodo());
+
+
 				break;
-			case 3:
+			}
+			case 3:{
 				cout << "Imprimir Registros" << endl;
 				pTree->ioTraversal(pTree->getRoot());
 				break;
-			case 4:
+			}
+			case 4:{
 				cout << "Busca por Nome" << endl;
+				cout << "Digite a chave de busca: ";
+				cin >> nome;
+				pTree->SearchName(nome, pTree->getRoot());
 				break;
-			case 5:
-				long identifier;
+			}
+			case 5:{
 				cout << "Busca por Chave" << endl;
 				cout << "Entre com indice desejado: ";
 				cin >> identifier;
-				pNewLObject = new LObject(); //Para guardar os dados que serão inseridos
-				*pNewNodo = pTree->getRoot();
-				pNewLObject->setIdentifier(identifier);
-				pTree->SearchIdentificador(pNewLObject, &(*pNewNodo));
-				pNewLObject->imprimeObjeto();
+				pDCElement = new DCElement(); //Para guardar os dados que serão inseridos
+				pDCElement->setIdentifier(identifier);
+				if (pTree->SearchIdentificator(pDCElement, pTree->getNewNodo()))
+				pDCElement->printElement();
 				break;
-			case 6:
+			}
+			case 6:{
 				cout << "Sair";
 				break;
-			default:
+			}
+			default:{
 				cout << "Tente novamente com uma opção válida"  << endl;
-				return 0;
+				break;
+			}
 		}
 
 		menu = Menu();
 	};
-	out.close();
+
 
 	return 0;
 };
@@ -121,12 +126,5 @@ int Menu(){
 	return menu;
 };
 
-void FileioTraversal(Nodo* pNodo) {
-	if (pNodo == NULL) return;
-	FileioTraversal(pNodo->getLeft());
-	pNodo->getLob().imprimeObjeto();
-	FileioTraversal(pNodo->getRight());
-	pNodo->getLob().imprimeObjeto();
-}
 
 
